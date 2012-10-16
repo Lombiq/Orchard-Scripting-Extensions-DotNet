@@ -6,6 +6,10 @@ Version: 1.0
 OrchardVersion: 1.5
 Description: Enables Orchard scripting using .NET languages.
 Features:
+	OrchardHUN.Scripting.DotNet:
+		Name: Orchard Scripting Extensions: .NET
+        Description: Enables Orchard scripting .NET languages.
+		Category: Scripting
     OrchardHUN.Scripting.CSharp:
 		Name: Orchard Scripting Extensions: C#
         Description: Enables Orchard scripting using C#.
