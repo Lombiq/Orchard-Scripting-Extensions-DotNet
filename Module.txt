@@ -1,13 +1,18 @@
-﻿Name: Orchard Scripting Extensions: C#
+﻿Name: Orchard Scripting Extensions: .NET
 AntiForgery: enabled
 Author: The Orchard Hungary Team
-Website: http://orchardphpscriptingcs.codeplex.com
+Website: http://orchardscriptingnet.codeplex.com
 Version: 1.0
 OrchardVersion: 1.5
-Description: Enables Orchard scripting using C#.
+Description: Enables Orchard scripting using .NET languages.
 Features:
     OrchardHUN.Scripting.CSharp:
 		Name: Orchard Scripting Extensions: C#
         Description: Enables Orchard scripting using C#.
+		Category: Scripting
+		Dependencies: OrchardHUN.Scripting
+	OrchardHUN.Scripting.VisualBasic:
+		Name: Orchard Scripting Extensions: VB
+        Description: Enables Orchard scripting using Visual Basic.
 		Category: Scripting
 		Dependencies: OrchardHUN.Scripting
