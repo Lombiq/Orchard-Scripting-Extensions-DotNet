@@ -67,16 +67,6 @@
     <Content Include="Module.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Orchard.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Orchard.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Orchard.Framework">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Orchard.Framework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -85,6 +75,14 @@
     <Compile Include="Services\ICSharpRuntime.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OrchardHUN.Scripting\OrchardHUN.Scripting.csproj">
       <Project>{C8715027-A8C5-45DC-8A22-FB713AF14468}</Project>
       <Name>OrchardHUN.Scripting</Name>
