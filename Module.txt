@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: The Orchard Hungary Team
 Website: http://orchardscriptingnet.codeplex.com
 Version: 1.0
-OrchardVersion: 1.5
+OrchardVersion: 1.6
 Description: Enables Orchard scripting using .NET languages.
 Features:
 	OrchardHUN.Scripting.DotNet:
