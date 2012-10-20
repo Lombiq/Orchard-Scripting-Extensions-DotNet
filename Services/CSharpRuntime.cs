@@ -4,6 +4,7 @@ using Microsoft.CSharp;
 using Orchard.Environment.Extensions;
 using OrchardHUN.Scripting.Models;
 using System.Reflection;
+using OrchardHUN.Scripting.Services;
 
 namespace OrchardHUN.Scripting.CSharp.Services
 {
@@ -15,7 +16,7 @@ namespace OrchardHUN.Scripting.CSharp.Services
             get { return "C#"; }
         }
 
-        public dynamic ExecuteExpression(string expression, Models.ScriptScope scope)
+        public dynamic ExecuteExpression(string expression, ScriptScope scope)
         {
             throw new NotImplementedException();
         }
