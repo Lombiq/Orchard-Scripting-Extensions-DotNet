@@ -35,9 +35,8 @@ namespace OrchardHUN.Scripting.CSharp.Services
                     }
                 }";
 
-            CSharpCodeProvider codeProvider = new CSharpCodeProvider();
-            CompilerParameters compParameters = new CompilerParameters();
-            CompilerResults result = codeProvider.CompileAssemblyFromSource(compParameters, code);
+            CompilerParameters compParameters = new CompilerParameters() { GenerateInMemory = true };
+            CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(compParameters, code);
 
             if (result.Errors.HasErrors)
             {
