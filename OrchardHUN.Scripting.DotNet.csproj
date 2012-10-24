@@ -76,6 +76,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDotNetScriptEventHandler.cs" />
     <Compile Include="Services\CSharpRuntime.cs" />
     <Compile Include="Services\ICSharpRuntime.cs" />
   </ItemGroup>

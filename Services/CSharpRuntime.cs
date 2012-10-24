@@ -6,6 +6,7 @@ using OrchardHUN.Scripting.Exceptions;
 using OrchardHUN.Scripting.Services;
 using System;
 using System.CodeDom.Compiler;
+using System.Text;
 
 namespace OrchardHUN.Scripting.CSharp.Services
 {
@@ -13,10 +14,12 @@ namespace OrchardHUN.Scripting.CSharp.Services
     public class CSharpRuntime : ICSharpRuntime
     {
         private readonly IOrchardServices _orchardServices;
+        private readonly IDotNetScriptEventHandler _eventHandler;
 
-        public CSharpRuntime(IOrchardServices orchardServices)
+        public CSharpRuntime(IOrchardServices orchardServices, IDotNetScriptEventHandler eventHandler)
         {
             _orchardServices = orchardServices;
+            _eventHandler = eventHandler;
         }
 
         public string Engine
@@ -36,17 +39,18 @@ namespace OrchardHUN.Scripting.CSharp.Services
                     }
                 }";
 
-            CompilerParameters compParameters = new CompilerParameters() { GenerateInMemory = true };
-            CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(compParameters, code);
+            CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true };
+            _eventHandler.BeforeCompilation(new BeforeDotNetCompilationContext(scope));
+            CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, code);
+            _eventHandler.AfterCompilation(new AfterDotNetCompilationContext(scope, result));
 
-            if (result.Errors.HasErrors)
-            {
-                throw new ScriptRuntimeException("The C# code could not be executed.");
-            }
+            if (result.Errors.HasErrors) throw new ScriptRuntimeException("The C# code could not be executed.");
             else
             {
                 object myClass = result.CompiledAssembly.CreateInstance("Scripting");
+                _eventHandler.BeforeExecution(new BeforeDotNetExecutionContext(scope));
                 myClass.GetType().GetMethod("Script").Invoke(myClass, new object[] { });
+                _eventHandler.AfterExecution(new AfterDotNetExecutionContext(scope));
             }
 
             return true;
