@@ -2,6 +2,7 @@
 using Orchard;
 using Orchard.Environment.Extensions;
 using Orchard.Localization;
+using OrchardHUN.Scripting.Exceptions;
 using OrchardHUN.Scripting.Services;
 using System;
 using System.CodeDom.Compiler;
@@ -40,16 +41,15 @@ namespace OrchardHUN.Scripting.CSharp.Services
 
             if (result.Errors.HasErrors)
             {
-                _orchardServices.Notifier.Add(Orchard.UI.Notify.NotifyType.Error, new LocalizedString("There is a problem with your script."));
-                return false;
+                throw new ScriptRuntimeException("The C# code could not be executed.");
             }
             else
             {
                 object myClass = result.CompiledAssembly.CreateInstance("Scripting");
                 myClass.GetType().GetMethod("Script").Invoke(myClass, new object[] { });
-                _orchardServices.Notifier.Add(Orchard.UI.Notify.NotifyType.Information, new LocalizedString("Your script ran successfully."));
-                return true;
             }
+
+            return true;
         }
 
         public dynamic ExecuteFile(string path, ScriptScope scope)
