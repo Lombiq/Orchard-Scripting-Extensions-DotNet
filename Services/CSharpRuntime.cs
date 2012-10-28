@@ -11,7 +11,7 @@ using System.Text;
 namespace OrchardHUN.Scripting.CSharp.Services
 {
     [OrchardFeature("OrchardHUN.Scripting.CSharp")]
-    public class CSharpRuntime : ICSharpRuntime
+    public class CSharpRuntime : IScriptingRuntime
     {
         private readonly IOrchardServices _orchardServices;
         private readonly IDotNetScriptEventHandler _eventHandler;
@@ -54,11 +54,6 @@ namespace OrchardHUN.Scripting.CSharp.Services
             }
 
             return true;
-        }
-
-        public dynamic ExecuteFile(string path, ScriptScope scope)
-        {
-            throw new NotImplementedException();
         }
     }
 }
