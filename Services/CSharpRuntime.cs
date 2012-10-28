@@ -1,10 +1,8 @@
 ﻿using Microsoft.CSharp;
 using Orchard;
 using Orchard.Environment.Extensions;
-using Orchard.Localization;
 using OrchardHUN.Scripting.Exceptions;
 using OrchardHUN.Scripting.Services;
-using System;
 using System.CodeDom.Compiler;
 using System.Text;
 
@@ -22,10 +20,7 @@ namespace OrchardHUN.Scripting.CSharp.Services
             _eventHandler = eventHandler;
         }
 
-        public string Engine
-        {
-            get { return "C#"; }
-        }
+        public string Engine { get { return "C#"; } }
 
         public dynamic ExecuteExpression(string expression, ScriptScope scope)
         {
@@ -44,7 +39,12 @@ namespace OrchardHUN.Scripting.CSharp.Services
             CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, code);
             _eventHandler.AfterCompilation(new AfterDotNetCompilationContext(scope, result));
 
-            if (result.Errors.HasErrors) throw new ScriptRuntimeException("The C# code could not be executed.");
+            if (result.Errors.HasErrors)
+            {
+                var builder = new StringBuilder();
+                foreach (var item in result.Errors) builder.Append(item + "\n");
+                throw new ScriptRuntimeException("The C# code could not be executed.", new System.Exception(builder.ToString()));
+            }
             else
             {
                 object myClass = result.CompiledAssembly.CreateInstance("Scripting");
