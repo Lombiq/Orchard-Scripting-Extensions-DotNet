@@ -28,13 +28,16 @@ namespace OrchardHUN.Scripting.CSharp.Services
                 using System;
                 public class Scripting
                 {
-                    public static void Script()
+                    public static dynamic Script()
                     {" +
                        expression + @"
                     }
                 }";
 
             CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true };
+            parameters.ReferencedAssemblies.Add("System.dll");
+            parameters.ReferencedAssemblies.Add("System.Core.dll");
+
             _eventHandler.BeforeCompilation(new BeforeDotNetCompilationContext(scope));
             CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, code);
             _eventHandler.AfterCompilation(new AfterDotNetCompilationContext(scope, result));
@@ -47,13 +50,12 @@ namespace OrchardHUN.Scripting.CSharp.Services
             }
             else
             {
-                object myClass = result.CompiledAssembly.CreateInstance("Scripting");
+                object wrapperClass = result.CompiledAssembly.CreateInstance("Scripting");
                 _eventHandler.BeforeExecution(new BeforeDotNetExecutionContext(scope));
-                myClass.GetType().GetMethod("Script").Invoke(myClass, new object[] { });
+                var scriptResult = wrapperClass.GetType().GetMethod("Script").Invoke(wrapperClass, new object[] { });
                 _eventHandler.AfterExecution(new AfterDotNetExecutionContext(scope));
+                return scriptResult;
             }
-
-            return true;
         }
     }
 }
