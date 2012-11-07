@@ -2,7 +2,7 @@
 using OrchardHUN.Scripting.Services;
 using System.CodeDom.Compiler;
 
-namespace OrchardHUN.Scripting.CSharp
+namespace OrchardHUN.Scripting.DotNet
 {
     public interface IDotNetScriptEventHandler : IEventHandler
     {

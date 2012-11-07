@@ -5,8 +5,9 @@ using OrchardHUN.Scripting.Exceptions;
 using OrchardHUN.Scripting.Services;
 using System.CodeDom.Compiler;
 using System.Text;
+using System.Web.Hosting;
 
-namespace OrchardHUN.Scripting.CSharp.Services
+namespace OrchardHUN.Scripting.DotNet.Services
 {
     [OrchardFeature("OrchardHUN.Scripting.CSharp")]
     public class CSharpRuntime : IScriptingRuntime
@@ -27,6 +28,11 @@ namespace OrchardHUN.Scripting.CSharp.Services
             CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true };            
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Core.dll");
+            parameters.ReferencedAssemblies.Add("System.Web.dll");
+
+            var appPath = HostingEnvironment.ApplicationPhysicalPath;
+            parameters.ReferencedAssemblies.Add(appPath + "/Core/bin/Orchard.Core.dll");
+            parameters.ReferencedAssemblies.Add(appPath + "/Core/bin/Orchard.Framework.dll");
 
             _eventHandler.BeforeCompilation(new BeforeDotNetCompilationContext(scope));
             CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, expression);
@@ -40,9 +46,9 @@ namespace OrchardHUN.Scripting.CSharp.Services
             }
             else
             {
-                var wrapperClass = result.CompiledAssembly.CreateInstance("CSharpScripting");
+                var entryClass = result.CompiledAssembly.CreateInstance("CSharpScripting");
                 _eventHandler.BeforeExecution(new BeforeDotNetExecutionContext(scope));
-                var scriptResult = wrapperClass.GetType().GetMethod("Main").Invoke(wrapperClass, new object[] { });
+                var scriptResult = entryClass.GetType().GetMethod("Main").Invoke(entryClass, new object[] { });
                 _eventHandler.AfterExecution(new AfterDotNetExecutionContext(scope));
                 return scriptResult;
             }
