@@ -24,22 +24,12 @@ namespace OrchardHUN.Scripting.CSharp.Services
 
         public dynamic ExecuteExpression(string expression, ScriptScope scope)
         {
-            string code = @"
-                using System;
-                public class Scripting
-                {
-                    public static dynamic Script()
-                    {" +
-                       expression + @"
-                    }
-                }";
-
-            CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true };
+            CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true };            
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Core.dll");
 
             _eventHandler.BeforeCompilation(new BeforeDotNetCompilationContext(scope));
-            CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, code);
+            CompilerResults result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, expression);
             _eventHandler.AfterCompilation(new AfterDotNetCompilationContext(scope, result));
 
             if (result.Errors.HasErrors)
@@ -50,9 +40,9 @@ namespace OrchardHUN.Scripting.CSharp.Services
             }
             else
             {
-                object wrapperClass = result.CompiledAssembly.CreateInstance("Scripting");
+                var wrapperClass = result.CompiledAssembly.CreateInstance("CSharpScripting");
                 _eventHandler.BeforeExecution(new BeforeDotNetExecutionContext(scope));
-                var scriptResult = wrapperClass.GetType().GetMethod("Script").Invoke(wrapperClass, new object[] { });
+                var scriptResult = wrapperClass.GetType().GetMethod("Main").Invoke(wrapperClass, new object[] { });
                 _eventHandler.AfterExecution(new AfterDotNetExecutionContext(scope));
                 return scriptResult;
             }
