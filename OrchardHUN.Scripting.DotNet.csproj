@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="IDotNetScriptEventHandler.cs" />
     <Compile Include="Services\CSharpRuntime.cs" />
+    <Compile Include="Services\VisualBasicRuntime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
