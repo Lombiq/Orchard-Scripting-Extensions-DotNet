@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="IDotNetScriptEventHandler.cs" />
     <Compile Include="Services\CSharpRuntime.cs" />
+    <Compile Include="Services\DotNetAssemblyLoader.cs" />
     <Compile Include="Services\DotNetRuntime.cs" />
     <Compile Include="Services\VisualBasicRuntime.cs" />
   </ItemGroup>
