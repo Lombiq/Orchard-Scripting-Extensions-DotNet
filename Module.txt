@@ -10,13 +10,14 @@ Features:
 		Name: Orchard Scripting Extensions: .NET
         Description: Enables Orchard scripting .NET languages.
 		Category: Scripting
+		Dependencies: OrchardHUN.Scripting
     OrchardHUN.Scripting.CSharp:
 		Name: Orchard Scripting Extensions: C#
         Description: Enables Orchard scripting using C#.
 		Category: Scripting
-		Dependencies: OrchardHUN.Scripting
+		Dependencies: OrchardHUN.Scripting.DotNet
 	OrchardHUN.Scripting.VisualBasic:
 		Name: Orchard Scripting Extensions: VB
         Description: Enables Orchard scripting using Visual Basic.
 		Category: Scripting
-		Dependencies: OrchardHUN.Scripting
+		Dependencies: OrchardHUN.Scripting.DotNet
