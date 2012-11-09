@@ -1,0 +1,13 @@
+﻿@model OrchardHUN.Scripting.Models.ScriptPart
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        (function ($) {
+            $(document).on("selectedEngineChanged.ScriptingExtensions", function (values) {
+                if (values.engine == "C#" || values.engine == "VB")
+                    values.editor.getSession().setMode("ace/mode/csharp"); // VB is not yet supported, using C# instead
+            });
+        })(jQuery);
+    </script>
+}
