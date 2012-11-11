@@ -7,6 +7,7 @@ using OrchardHUN.Scripting.Exceptions;
 using OrchardHUN.Scripting.Services;
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Text;
 
 namespace OrchardHUN.Scripting.CSharp.Services
@@ -37,13 +38,14 @@ namespace OrchardHUN.Scripting.CSharp.Services
             foreach (var item in scope.Assemblies) parameters.ReferencedAssemblies.Add(item.Location);
 
             CompilerResults result;
+            var providerOptions = new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } };
             switch (engine)
             {
                 case "C#":
-                    result = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, expression);
+                    result = new CSharpCodeProvider(providerOptions).CompileAssemblyFromSource(parameters, expression);
                     break;
                 case "VB":
-                    result = new VBCodeProvider().CompileAssemblyFromSource(parameters, expression);
+                    result = new VBCodeProvider(providerOptions).CompileAssemblyFromSource(parameters, expression);
                     break;
                 default:
                     throw new ArgumentException(T("Undefined .NET scripting engine.").ToString());
