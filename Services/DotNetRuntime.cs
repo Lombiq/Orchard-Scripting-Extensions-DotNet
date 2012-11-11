@@ -19,12 +19,14 @@ namespace OrchardHUN.Scripting.CSharp.Services
     public class DotNetRuntime : IDotNetRuntime
     {
         private readonly IDotNetScriptEventHandler _eventHandler;
+        private readonly IOrchardServices _orchardServices;
 
         public Localizer T { get; set; }
 
-        public DotNetRuntime(IDotNetScriptEventHandler eventHandler)
+        public DotNetRuntime(IDotNetScriptEventHandler eventHandler, IOrchardServices orchardServices)
         {
             _eventHandler = eventHandler;
+            _orchardServices = orchardServices;
 
             T = NullLocalizer.Instance;
         }
@@ -33,7 +35,7 @@ namespace OrchardHUN.Scripting.CSharp.Services
         {
             _eventHandler.BeforeCompilation(new BeforeDotNetCompilationContext(scope));
 
-            CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true };
+            CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true, TreatWarningsAsErrors = false };
             foreach (var item in scope.Assemblies) parameters.ReferencedAssemblies.Add(item.Location);
 
             CompilerResults result;

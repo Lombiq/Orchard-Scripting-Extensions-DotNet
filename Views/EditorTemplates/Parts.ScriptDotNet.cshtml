@@ -5,8 +5,25 @@
     <script type="text/javascript">
         (function ($) {
             $(document).on("selectedEngineChanged.ScriptingExtensions", function (values) {
-                if (values.engine == "C#" || values.engine == "VB")
-                    values.editor.getSession().setMode("ace/mode/csharp"); // VB is not yet supported, using C# instead
+                if (values.engine == "C#" || values.engine == "VB") {
+                    // VB is not yet supported, using C# instead
+                    values.editor.getSession().setMode("ace/mode/csharp");
+                    values.help.sample.getSession().setMode("ace/mode/csharp");
+
+                    values.help.hint.text("@T("The script must contain a non-static class named DotNetScripting and a static function named Main which will be entry point of your script.")");
+
+                    switch (values.engine) {
+                        case "C#":
+                            values.help.sample.getSession().setValue("using System;\n\npublic class DotNetScripting\n{\n\tpublic static dynamic Main()\n\t{\n\t\treturn Greeting();\n\t}\n\n\tpublic static string Greeting()\n\t{\n\t\treturn \"Hello C# scripting!\";\n\t}\n}");
+                            break;
+                        case "VB":
+                            values.help.sample.getSession().setValue("Imports System\n\nPublic Class DotNetScripting\n\tPublic Shared Function Main() As String\n\t\tReturn Greeting()\n\tEnd Function\n\n\tPublic Shared Function Greeting() As String\n\t\tReturn \"Hello VB scripting!\"\n\tEnd Function\nEnd Class");
+                            break;
+                        default:
+                            values.help.sample.getSession().setValue("");
+                            break;
+                    }
+                }
             });
         })(jQuery);
     </script>

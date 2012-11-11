@@ -1,4 +1,5 @@
 ﻿using OrchardHUN.Scripting.DotNet;
+using System.Reflection;
 
 namespace OrchardHUN.Scripting.CSharp.Services
 {
@@ -7,6 +8,7 @@ namespace OrchardHUN.Scripting.CSharp.Services
         public void BeforeCompilation(BeforeDotNetCompilationContext context)
         {
             context.Scope.LoadAssembly(typeof(System.Dynamic.CallInfo).Assembly); // System.Core.dll
+            context.Scope.LoadAssembly(Assembly.LoadFrom("Microsoft.Csharp.dll"));
         }
 
         public void AfterCompilation(AfterDotNetCompilationContext context) { }
