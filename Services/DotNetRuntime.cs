@@ -19,14 +19,12 @@ namespace OrchardHUN.Scripting.CSharp.Services
     public class DotNetRuntime : IDotNetRuntime
     {
         private readonly IDotNetScriptEventHandler _eventHandler;
-        private readonly IOrchardServices _orchardServices;
 
         public Localizer T { get; set; }
 
-        public DotNetRuntime(IDotNetScriptEventHandler eventHandler, IOrchardServices orchardServices)
+        public DotNetRuntime(IDotNetScriptEventHandler eventHandler)
         {
             _eventHandler = eventHandler;
-            _orchardServices = orchardServices;
 
             T = NullLocalizer.Instance;
         }
