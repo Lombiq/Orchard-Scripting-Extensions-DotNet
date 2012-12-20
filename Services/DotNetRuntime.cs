@@ -34,7 +34,7 @@ namespace OrchardHUN.Scripting.CSharp.Services
         {
             _eventHandler.BeforeCompilation(new BeforeDotNetCompilationContext(scope));
 
-            CompilerParameters parameters = new CompilerParameters() { GenerateInMemory = true, TreatWarningsAsErrors = false };
+            var parameters = new CompilerParameters { GenerateInMemory = true, TreatWarningsAsErrors = false };
             foreach (var item in scope.Assemblies) parameters.ReferencedAssemblies.Add(item.Location);
 
             CompilerResults result;
@@ -59,18 +59,16 @@ namespace OrchardHUN.Scripting.CSharp.Services
                 foreach (var item in result.Errors) builder.Append(Environment.NewLine + item);
                 throw new ScriptRuntimeException(Environment.NewLine + T("The following compile error(s) need to be fixed:") + builder.ToString());
             }
-            else
-            {
-                var entryClass = result.CompiledAssembly.CreateInstance("DotNetScripting");
 
-                _eventHandler.BeforeExecution(new BeforeDotNetExecutionContext(scope));
+            var entryClass = result.CompiledAssembly.CreateInstance("DotNetScripting");
 
-                var scriptResult = entryClass.GetType().GetMethod("Main").Invoke(entryClass, new object[] { });
+            _eventHandler.BeforeExecution(new BeforeDotNetExecutionContext(scope));
 
-                _eventHandler.AfterExecution(new AfterDotNetExecutionContext(scope));
+            var scriptResult = entryClass.GetType().GetMethod("Main").Invoke(entryClass, new object[] { });
 
-                return scriptResult;
-            }
+            _eventHandler.AfterExecution(new AfterDotNetExecutionContext(scope));
+
+            return scriptResult;
         }
     }
 }
