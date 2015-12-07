@@ -1,7 +1,7 @@
 ﻿Name: Orchard Scripting Extensions: .NET
 AntiForgery: enabled
 Author: The Orchard Hungary Team / Lombiq
-Website: http://orchardscriptingnet.codeplex.com
+Website: https://github.com/Lombiq/Orchard-Scripting-Extensions-DotNet
 Version: 1.0
 OrchardVersion: 1.8
 Description: Enables Orchard scripting using .NET languages.
