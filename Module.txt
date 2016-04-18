@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: The Orchard Hungary Team / Lombiq
 Website: https://github.com/Lombiq/Orchard-Scripting-Extensions-DotNet
 Version: 1.0
-OrchardVersion: 1.9.1
+OrchardVersion: 1.9.2
 Description: Enables Orchard scripting using .NET languages.
 Features:
 	OrchardHUN.Scripting.DotNet:
