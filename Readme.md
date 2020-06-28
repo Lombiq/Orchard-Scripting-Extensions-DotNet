@@ -1,8 +1,8 @@
-# Orchard Scripting Extensions: .NET (C#, VB) Readme
+# Orchard Scripting Extensions: .NET (C#, VB)
 
 
 
-## Project Description
+## About
 
 A child module for Orchard Scripting Extensions for running C# and Visual Basic code inside Orchard.
 
@@ -12,12 +12,9 @@ A child module for Orchard Scripting Extensions for running C# and Visual Basic 
 **This module depends on [Orchard Scripting Extensions](https://github.com/Lombiq/Orchard-Scripting-Extensions) and uses many of its features. Please install it first!**  
 (And also read that module's docs to see what you can do with it - and through it, with .NET scripting).
 
-The module's source is available in two public source repositories, automatically mirrored in both directions with [Git-hg Mirror](https://githgmirror.com):
 
-- [https://bitbucket.org/Lombiq/orchard-scripting-extensions-dotnet](https://bitbucket.org/Lombiq/orchard-scripting-extensions-dotnet) (Mercurial repository)
-- [https://github.com/Lombiq/Orchard-Scripting-Extensions-DotNet](https://github.com/Lombiq/Orchard-Scripting-Extensions-DotNet) (Git repository)
+## Contributing and support
 
-Bug reports, feature requests and comments are warmly welcome, **please do so via GitHub**.
-Feel free to send pull requests too, no matter which source repository you choose for this purpose.
+Bug reports, feature requests, comments, questions, code contributions, and love letters are warmly welcome, please do so via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
 
-This project is developed by [Lombiq Technologies Ltd](http://lombiq.com/). Commercial-grade support is available through Lombiq.
+This project is developed by [Lombiq Technologies](https://lombiq.com/). Commercial-grade support is available through Lombiq.
